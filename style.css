@@ -1,43 +1,297 @@
+/* Header */
+
+header {
+    background-color: #28a745; /* Verde */
+    padding: 20px 40px; /* Espaçamento aumentado */
+    border-bottom: 2px solid #ccc;
+}
+
+.header-container {
+    max-width: 80%;
+    margin: 0 auto;
+    display: flex; /* Garante alinhamento em linha */
+    align-items: center; /* Alinha verticalmente o ícone e o texto */
+}
+
+.header-icon-link {
+    text-decoration: none; /* Remove sublinhado */
+    color: #fff; /* Cor branca */
+    margin-right: 15px; /* Espaçamento entre o ícone e o texto */
+    font-size: 2rem; /* Tamanho do ícone */
+}
+
+.header-icon-link:hover {
+    color: #d4d4d4; /* Cor mais clara ao passar o mouse */
+}
+
+header h1 {
+    font-size: 1.8rem; /* Tamanho do texto */
+    color: #fff; /* Cor branca */
+    margin: 0;
+}
+header h1 i {
+    margin-right: 15px; /* Espaçamento entre o ícone e o texto */
+    color: #fff; /* Ícone branco */
+}
+
+/* ======== Layout Básico ======== */
+
+h1 i {
+    margin-right: 10px; /* Espaçamento entre o ícone e o texto */
+    color: #28a745; /* Cor verde para combinar com o botão */
+}
+
 body {
     font-family: Arial, sans-serif;
-    margin: 20px;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 80%;
+    margin: 20px auto;
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 label {
     display: block;
-    margin-top: 10px;
+    margin: 10px 0 5px 0;
 }
 
-input, textarea {
+input[type="text"], input[type="number"], button {
     width: 100%;
     padding: 8px;
-    margin: 5px 0;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-.container {
-    max-width: 800px;
-    margin: 0 auto;
+    margin-bottom: 10px;
+    box-sizing: border-box;
 }
 
 button {
-    background-color: #4CAF50;
-    color: white;
-    padding: 10px 15px;
-    border: none;
     cursor: pointer;
+    background-color: #28a745;
+    color: white;
+    border: none;
     border-radius: 4px;
 }
 
 button:hover {
-    background-color: #45a049;
+    background-color: #218838;
 }
 
+/* Botão "Adicionar Itens" */
+#btnAdicionarItem {
+    display: inline-block;
+    font-size: 2rem; /* Tamanho da fonte dobrado */
+    padding: 10px 20px; /* Espaçamento dobrado */
+    margin-bottom: 10px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: auto;
+}
+
+
+#btnAdicionarItem:hover {
+    background-color: #218838;
+}
+
+/* Botão "Gerar Nota Fiscal" */
+button[onclick="gerarNotaFiscal()"] {
+    display: block;
+    font-size: 2rem; /* Tamanho da fonte dobrado */
+    padding: 10px 20px; /* Espaçamento dobrado */
+    margin: 20px auto;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: auto;
+}
+
+
+button[onclick="gerarNotaFiscal()"]:hover {
+    background-color: #218838;
+}
+
+/* ======== Tabela de Itens ======== */
+.tabela-container {
+    margin: 20px 0;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+table thead {
+    background-color: #eee;
+}
+
+table th, table td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
+}
+
+.error-message {
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
+    display: none; /* Esconde por padrão */
+}
+
+/* Coluna de ações */
+.acoes {
+    display: flex; /* Usado para centralizar os botões */
+    justify-content: center; /* Centraliza os botões horizontalmente */
+    gap: 5px; /* Espaçamento entre os botões */
+}
+
+/* Ícones/Ações */
+
+/* Botão "Editar" */
+.btnAcao.edit {
+    background-color: #ffc107; /* Amarelo */
+    color: #fff;
+    border-radius: 4px;
+    width: 35px;
+    height: 35px;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btnAcao.edit:hover {
+    background-color: #e0a800; /* Amarelo mais escuro */
+}
+
+/* Ícone interno do botão "Editar" */
+.btnAcao.edit .edit-icon {
+    transform: rotate(135deg); /* Rotaciona o ícone */
+    display: inline-block;
+}
+
+/* Botão "delete" */
+
+.btnDelete {
+    background-color: #dc3545;
+    color: #fff;
+    border-radius: 4px;
+    width: 35px;
+    height: 35px;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex; /* Garante alinhamento do ícone */
+    justify-content: center; /* Centraliza o conteúdo horizontalmente */
+    align-items: center; /* Centraliza o conteúdo verticalmente */
+}
+
+.btnDelete:hover {
+    background-color: #c82333;
+}
+
+/* botão view */
+
+/* Botão "Visualizar" */
+.btnAcao.view {
+    background-color: #28a745; /* Verde */
+    color: #fff;
+    border-radius: 4px;
+    width: 35px; /* Largura fixa */
+    height: 35px; /* Altura fixa */
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex; /* Centraliza o ícone dentro do botão */
+    justify-content: center;
+    align-items: center;
+}
+
+.btnAcao.view:hover {
+    background-color: #218838; /* Verde mais escuro */
+}
+
+
+/* ======== Nota Fiscal ======== */
 .nota-fiscal {
     margin-top: 20px;
     padding: 15px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    background-color: #f9f9f9;
+    background-color: #fafafa;
+}
+
+/* ======== Pop-ups ======== */
+.popup {
+    display: none; /* Será exibido como flex quando aberto */
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    /* Fundo semitransparente */
+    background-color: rgba(0, 0, 0, 0.5);
+
+    /* Centralizando o conteúdo */
+    justify-content: center;
+    align-items: center;
+}
+
+.popup-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    width: 300px;
+}
+
+.popup-content h3 {
+    margin-top: 0;
+}
+
+.popup-content input[type="text"], 
+.popup-content input[type="number"] {
+    width: 100%;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+}
+
+.popup-content p {
+    margin: 15px 0;
+}
+
+.popup-content button {
+    padding: 10px 20px;
+    margin: 5px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.popup-content button:nth-child(1) {
+    background-color: #dc3545; /* Vermelho para "Sim" */
+    color: white;
+}
+
+.popup-content button:nth-child(1):hover {
+    background-color: #c82333;
+}
+
+.popup-content button:nth-child(2) {
+    background-color: #6c757d; /* Cinza para "Não" */
+    color: white;
+}
+
+.popup-content button:nth-child(2):hover {
+    background-color: #5a6268;
 }
