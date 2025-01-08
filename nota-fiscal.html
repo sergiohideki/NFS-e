@@ -22,8 +22,8 @@
 <div class="container">
   <h2>Nota Fiscal Emitida</h2>
   <div id="notaFiscal" class="nota-fiscal">
-    <p><strong>Valor da Venda:</strong> R$ <span id="nfValorVenda"></span></p>
     <p><strong>Itens Vendidos:</strong> <span id="nfItens"></span></p>
+    <p><strong>Valor da Venda:</strong> R$ <span id="nfValorVenda"></span></p>
     <p><strong>Impostos:</strong></p>
     <ul>
       <li>IRPF: R$ <span id="nfIrpf"></span></li>
@@ -45,17 +45,37 @@
       document.getElementById('header').innerHTML = data;
     });
 
-  // Exibir os dados da nota fiscal
-  const notaFiscal = JSON.parse(localStorage.getItem('notaFiscal')) || {};
-  document.getElementById('nfValorVenda').textContent = notaFiscal.valorVenda || '0.00';
-  document.getElementById('nfItens').textContent = notaFiscal.itens || '';
-  document.getElementById('nfIrpf').textContent = notaFiscal.irpf || '0.00';
-  document.getElementById('nfPis').textContent = notaFiscal.pis || '0.00';
-  document.getElementById('nfCofins').textContent = notaFiscal.cofins || '0.00';
-  document.getElementById('nfInss').textContent = notaFiscal.inss || '0.00';
-  document.getElementById('nfIssqn').textContent = notaFiscal.issqn || '0.00';
-  document.getElementById('nfTotalImpostos').textContent = notaFiscal.totalImpostos || '0.00';
-  document.getElementById('nfTotalFinal').textContent = notaFiscal.valorTotalFinal || '0.00';
+// Obter os dados da nota fiscal
+const notaFiscal = JSON.parse(localStorage.getItem('notaFiscal')) || {};
+
+// Exibir o valor da venda
+document.getElementById('nfValorVenda').textContent = notaFiscal.valorVenda || '0.00';
+
+// Exibir os itens vendidos como uma lista
+const itensVendidos = notaFiscal.itensVendidos || [];
+const listaItensVendidos = document.getElementById('nfItens');
+
+// Limpa a lista (caso já tenha sido carregada antes)
+listaItensVendidos.innerHTML = ''; // Se necessário
+
+// Adiciona os itens vendidos na lista
+itensVendidos.forEach(item => {
+  const li = document.createElement('li');
+  li.textContent = `${item.nome} - R$ ${item.valor.toFixed(2)}`;
+  listaItensVendidos.appendChild(li);
+});
+
+// Exibir os impostos
+document.getElementById('nfIrpf').textContent = notaFiscal.irpf || '0.00';
+document.getElementById('nfPis').textContent = notaFiscal.pis || '0.00';
+document.getElementById('nfCofins').textContent = notaFiscal.cofins || '0.00';
+document.getElementById('nfInss').textContent = notaFiscal.inss || '0.00';
+document.getElementById('nfIssqn').textContent = notaFiscal.issqn || '0.00';
+
+// Exibir os totais
+document.getElementById('nfTotalImpostos').textContent = notaFiscal.totalImpostos || '0.00';
+document.getElementById('nfTotalFinal').textContent = notaFiscal.valorTotalFinal || '0.00';
+
 </script>
 
 </body>

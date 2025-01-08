@@ -265,92 +265,92 @@ function validarFormularioPrincipal(event) {
 }
 
 function gerarNotaFiscal() {
-  const valorVenda = parseFloat(document.getElementById('valorVenda').value);
-  const itens = itensVendidos.map(item => item.nome).join(', ');
-  const irpf = parseFloat(document.getElementById('irpf').value);
-  const pis = parseFloat(document.getElementById('pis').value);
-  const cofins = parseFloat(document.getElementById('cofins').value);
-  const inss = parseFloat(document.getElementById('inss').value);
-  const issqn = parseFloat(document.getElementById('issqn').value);
-
-  // Função para exibir a mensagem de erro
-  function mostrarErro(campoId, mensagem) {
-    const erroElemento = document.getElementById(`error-${campoId}`);
-    erroElemento.textContent = mensagem;
-    erroElemento.style.display = 'block';
+    const valorVenda = parseFloat(document.getElementById('valorVenda').value);
+    const irpf = parseFloat(document.getElementById('irpf').value);
+    const pis = parseFloat(document.getElementById('pis').value);
+    const cofins = parseFloat(document.getElementById('cofins').value);
+    const inss = parseFloat(document.getElementById('inss').value);
+    const issqn = parseFloat(document.getElementById('issqn').value);
+  
+    // Função para exibir a mensagem de erro
+    function mostrarErro(campoId, mensagem) {
+      const erroElemento = document.getElementById(`error-${campoId}`);
+      erroElemento.textContent = mensagem;
+      erroElemento.style.display = 'block';
+    }
+  
+    // Função para limpar as mensagens de erro
+    function limparErros() {
+      document.querySelectorAll('.error-message').forEach(el => {
+        el.textContent = '';
+        el.style.display = 'none';
+      });
+    }
+  
+    // Limpar mensagens anteriores
+    limparErros();
+  
+    // Validar campos obrigatórios
+    let erros = false;
+  
+    if (isNaN(valorVenda) || valorVenda <= 0) {
+      mostrarErro('valorVenda', 'Preencha corretamente o Valor da Venda.');
+      erros = true;
+    }
+    if (isNaN(irpf)) {
+      mostrarErro('irpf', 'Preencha corretamente o campo IRPF.');
+      erros = true;
+    }
+    if (isNaN(pis)) {
+      mostrarErro('pis', 'Preencha corretamente o campo PIS.');
+      erros = true;
+    }
+    if (isNaN(cofins)) {
+      mostrarErro('cofins', 'Preencha corretamente o campo COFINS.');
+      erros = true;
+    }
+    if (isNaN(inss)) {
+      mostrarErro('inss', 'Preencha corretamente o campo INSS.');
+      erros = true;
+    }
+    if (isNaN(issqn)) {
+      mostrarErro('issqn', 'Preencha corretamente o campo ISSQN.');
+      erros = true;
+    }
+  
+    // Se houver erros, interrompa a execução
+    if (erros) return;
+  
+    // Calculando os impostos
+    const valorIrpf = valorVenda * (irpf / 100);
+    const valorPis = valorVenda * (pis / 100);
+    const valorCofins = valorVenda * (cofins / 100);
+    const valorInss = valorVenda * (inss / 100);
+    const valorIssqn = valorVenda * (issqn / 100);
+  
+    // Total de impostos
+    const totalImpostos = valorIrpf + valorPis + valorCofins + valorInss + valorIssqn;
+  
+    // Valor total com impostos
+    const valorTotalFinal = valorVenda + totalImpostos;
+  
+    // Salvar os dados no localStorage
+    localStorage.setItem('notaFiscal', JSON.stringify({
+      valorVenda: valorVenda.toFixed(2),
+      itensVendidos: itensVendidos, // Salvar a lista completa de itens
+      irpf: valorIrpf.toFixed(2),
+      pis: valorPis.toFixed(2),
+      cofins: valorCofins.toFixed(2),
+      inss: valorInss.toFixed(2),
+      issqn: valorIssqn.toFixed(2),
+      totalImpostos: totalImpostos.toFixed(2),
+      valorTotalFinal: valorTotalFinal.toFixed(2),
+    }));
+  
+    // Redirecionar para a página de exibição
+    window.location.href = 'nota-fiscal.html';
   }
-
-  // Função para limpar as mensagens de erro
-  function limparErros() {
-    document.querySelectorAll('.error-message').forEach(el => {
-      el.textContent = '';
-      el.style.display = 'none';
-    });
-  }
-
-  // Limpar mensagens anteriores
-  limparErros();
-
-  // Validar campos obrigatórios
-  let erros = false;
-
-  if (isNaN(valorVenda) || valorVenda <= 0) {
-    mostrarErro('valorVenda', 'Preencha corretamente o Valor da Venda.');
-    erros = true;
-  }
-  if (isNaN(irpf)) {
-    mostrarErro('irpf', 'Preencha corretamente o campo IRPF.');
-    erros = true;
-  }
-  if (isNaN(pis)) {
-    mostrarErro('pis', 'Preencha corretamente o campo PIS.');
-    erros = true;
-  }
-  if (isNaN(cofins)) {
-    mostrarErro('cofins', 'Preencha corretamente o campo COFINS.');
-    erros = true;
-  }
-  if (isNaN(inss)) {
-    mostrarErro('inss', 'Preencha corretamente o campo INSS.');
-    erros = true;
-  }
-  if (isNaN(issqn)) {
-    mostrarErro('issqn', 'Preencha corretamente o campo ISSQN.');
-    erros = true;
-  }
-
-  // Se houver erros, interrompa a execução
-  if (erros) return;
-
-  // Calculando os impostos
-  const valorIrpf = valorVenda * (irpf / 100);
-  const valorPis = valorVenda * (pis / 100);
-  const valorCofins = valorVenda * (cofins / 100);
-  const valorInss = valorVenda * (inss / 100);
-  const valorIssqn = valorVenda * (issqn / 100);
-
-  // Total de impostos
-  const totalImpostos = valorIrpf + valorPis + valorCofins + valorInss + valorIssqn;
-
-  // Valor total com impostos
-  const valorTotalFinal = valorVenda + totalImpostos;
-
-  // Salvar os dados no localStorage
-  localStorage.setItem('notaFiscal', JSON.stringify({
-    valorVenda: valorVenda.toFixed(2),
-    itens,
-    irpf: valorIrpf.toFixed(2),
-    pis: valorPis.toFixed(2),
-    cofins: valorCofins.toFixed(2),
-    inss: valorInss.toFixed(2),
-    issqn: valorIssqn.toFixed(2),
-    totalImpostos: totalImpostos.toFixed(2),
-    valorTotalFinal: valorTotalFinal.toFixed(2),
-  }));
-
-  // Redirecionar para a página de exibição
-  window.location.href = 'nota-fiscal.html';
-}
+  
 
 /* =============================================================================
    Eventos Principais
