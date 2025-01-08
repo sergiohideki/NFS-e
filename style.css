@@ -1,43 +1,182 @@
+/* ======== Layout Básico ======== */
 body {
     font-family: Arial, sans-serif;
-    margin: 20px;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 80%;
+    margin: 20px auto;
+    background-color: white;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 label {
     display: block;
-    margin-top: 10px;
+    margin: 10px 0 5px 0;
 }
 
-input, textarea {
+input[type="text"], input[type="number"], button {
     width: 100%;
     padding: 8px;
-    margin: 5px 0;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-.container {
-    max-width: 800px;
-    margin: 0 auto;
+    margin-bottom: 10px;
+    box-sizing: border-box;
 }
 
 button {
-    background-color: #4CAF50;
-    color: white;
-    padding: 10px 15px;
-    border: none;
     cursor: pointer;
+    background-color: #28a745;
+    color: white;
+    border: none;
     border-radius: 4px;
 }
 
 button:hover {
-    background-color: #45a049;
+    background-color: #218838;
 }
 
+/* Botão "Adicionar Itens" */
+#btnAdicionarItem {
+    display: inline-block;
+    padding: 5px 10px; /* Adicionado ajuste de largura e altura */
+    margin-bottom: 10px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: auto; /* Ajusta a largura ao conteúdo */
+}
+
+#btnAdicionarItem:hover {
+    background-color: #218838;
+}
+
+/* Botão "Gerar Nota Fiscal" */
+button[onclick="gerarNotaFiscal()"] {
+    display: block;
+    margin: 20px auto; /* Centralizado horizontalmente */
+    padding: 5px 10px; /* Ajuste de largura e altura */
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: auto; /* Ajusta a largura ao conteúdo */
+}
+
+button[onclick="gerarNotaFiscal()"]:hover {
+    background-color: #218838;
+}
+
+/* ======== Tabela de Itens ======== */
+.tabela-container {
+    margin: 20px 0;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+table thead {
+    background-color: #eee;
+}
+
+table th, table td {
+    border: 1px solid #ccc;
+    padding: 10px;
+    text-align: left;
+}
+
+/* Coluna de ações */
+.acoes {
+    display: flex; /* Usado para centralizar os botões */
+    justify-content: center; /* Centraliza os botões horizontalmente */
+    gap: 5px; /* Espaçamento entre os botões */
+}
+
+/* Ícones/Ações */
+.btnAcao {
+    background-color: #0275d8;
+    color: #fff;
+    border-radius: 4px;
+    width: 35px;
+    height: 35px;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex; /* Garante alinhamento do ícone */
+    justify-content: center; /* Centraliza o conteúdo horizontalmente */
+    align-items: center; /* Centraliza o conteúdo verticalmente */
+}
+
+.btnAcao:hover {
+    background-color: #025aa5;
+}
+
+.btnDelete {
+    background-color: #dc3545;
+    color: #fff;
+    border-radius: 4px;
+    width: 35px;
+    height: 35px;
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex; /* Garante alinhamento do ícone */
+    justify-content: center; /* Centraliza o conteúdo horizontalmente */
+    align-items: center; /* Centraliza o conteúdo verticalmente */
+}
+
+.btnDelete:hover {
+    background-color: #c82333;
+}
+
+/* ======== Nota Fiscal ======== */
 .nota-fiscal {
     margin-top: 20px;
     padding: 15px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    background-color: #f9f9f9;
+    background-color: #fafafa;
+}
+
+/* ======== Pop-ups ======== */
+.popup {
+    display: none; /* Será exibido como flex quando aberto */
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    /* Fundo semitransparente */
+    background-color: rgba(0, 0, 0, 0.5);
+
+    /* Centralizando o conteúdo */
+    justify-content: center;
+    align-items: center;
+}
+
+.popup-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 5px;
+    width: 300px;
+}
+
+.popup-content h3 {
+    margin-top: 0;
+}
+
+.popup-content input[type="text"], 
+.popup-content input[type="number"] {
+    width: 100%;
+    margin-bottom: 10px;
+    box-sizing: border-box;
 }

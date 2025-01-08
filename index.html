@@ -1,58 +1,113 @@
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Emissão de Nota Fiscal de Serviço (NFS-e)</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Emissão de Nota Fiscal de Serviço (NFS-e)</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
 <div class="container">
-    <h1>Emissão de Nota Fiscal de Serviço (NFS-e)</h1>
-    
-    <!-- Formulário de entrada -->
-    <form id="formNFS">
-        <label for="valorVenda">Valor da Venda (R$):</label>
-        <input type="number" id="valorVenda" name="valorVenda" required>
+  <h1>Emissão de Nota Fiscal de Serviço (NFS-e)</h1>
 
-        <label for="itens">Itens Vendidos:</label>
-        <textarea id="itens" name="itens" rows="4" required></textarea>
+  <!-- Formulário de entrada -->
+  <form id="formNFS">
+    <!-- Botão para abrir pop-up de Adicionar Item -->
+    <label for="itens">Itens Vendidos:</label>
+    <button type="button" id="btnAdicionarItem">Adicionar Itens</button>
 
-        <label for="irpf">Porcentagem do Imposto (IRPF):</label>
-        <input type="number" id="irpf" name="irpf" required>
-
-        <label for="pis">Porcentagem do Imposto (PIS):</label>
-        <input type="number" id="pis" name="pis" required>
-
-        <label for="cofins">Porcentagem do Imposto (COFINS):</label>
-        <input type="number" id="cofins" name="cofins" required>
-
-        <label for="inss">Porcentagem do Imposto (INSS):</label>
-        <input type="number" id="inss" name="inss" required>
-
-        <label for="issqn">Porcentagem do Imposto (ISSQN):</label>
-        <input type="number" id="issqn" name="issqn" required>
-
-        <button type="button" onclick="gerarNotaFiscal()">Gerar Nota Fiscal</button>
-    </form>
-
-    <!-- Exibição da Nota Fiscal -->
-    <div id="notaFiscal" class="nota-fiscal" style="display: none;">
-        <h2>Nota Fiscal Gerada</h2>
-        <p><strong>Valor da Venda:</strong> R$ <span id="nfValorVenda"></span></p>
-        <p><strong>Itens Vendidos:</strong> <span id="nfItens"></span></p>
-        <p><strong>Impostos:</strong></p>
-        <ul>
-            <li>IRPF: R$ <span id="nfIrpf"></span></li>
-            <li>PIS: R$ <span id="nfPis"></span></li>
-            <li>COFINS: R$ <span id="nfCofins"></span></li>
-            <li>INSS: R$ <span id="nfInss"></span></li>
-            <li>ISSQN: R$ <span id="nfIssqn"></span></li>
-        </ul>
-        <p><strong>Total de Impostos:</strong> R$ <span id="nfTotalImpostos"></span></p>
-        <p><strong>Valor Total (Venda + Impostos):</strong> R$ <span id="nfTotalFinal"></span></p>
+    <!-- Tabela de Itens -->
+    <div class="tabela-container">
+      <table id="tabelaItens" style="display: none;">
+        <thead>
+          <tr>
+            <th>Nome do Item</th>
+            <th>Valor (R$)</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+        <tbody id="tabelaCorpo"></tbody>
+      </table>
     </div>
+
+    <label for="valorVenda">Valor da Venda (R$):</label>
+    <input type="text" id="valorVenda" name="valorVenda" readonly>
+
+    <label for="irpf">Porcentagem do Imposto (IRPF):</label>
+    <input type="number" id="irpf" name="irpf" required>
+
+    <label for="pis">Porcentagem do Imposto (PIS):</label>
+    <input type="number" id="pis" name="pis" required>
+
+    <label for="cofins">Porcentagem do Imposto (COFINS):</label>
+    <input type="number" id="cofins" name="cofins" required>
+
+    <label for="inss">Porcentagem do Imposto (INSS):</label>
+    <input type="number" id="inss" name="inss" required>
+
+    <label for="issqn">Porcentagem do Imposto (ISSQN):</label>
+    <input type="number" id="issqn" name="issqn" required>
+
+    <button type="button" onclick="gerarNotaFiscal()">Gerar Nota Fiscal</button>
+  </form>
+
+  <!-- Exibição da Nota Fiscal -->
+  <div id="notaFiscal" class="nota-fiscal" style="display: none;">
+    <h2>Nota Fiscal Gerada</h2>
+    <p><strong>Valor da Venda:</strong> R$ <span id="nfValorVenda"></span></p>
+    <p><strong>Itens Vendidos:</strong> <span id="nfItens"></span></p>
+    <p><strong>Impostos:</strong></p>
+    <ul>
+      <li>IRPF: R$ <span id="nfIrpf"></span></li>
+      <li>PIS: R$ <span id="nfPis"></span></li>
+      <li>COFINS: R$ <span id="nfCofins"></span></li>
+      <li>INSS: R$ <span id="nfInss"></span></li>
+      <li>ISSQN: R$ <span id="nfIssqn"></span></li>
+    </ul>
+    <p><strong>Total de Impostos:</strong> R$ <span id="nfTotalImpostos"></span></p>
+    <p><strong>Valor Total (Venda + Impostos):</strong> R$ <span id="nfTotalFinal"></span></p>
+  </div>
+</div>
+
+<!-- Pop-up para Adicionar Item -->
+<div id="popupAdd" class="popup">
+  <div class="popup-content">
+    <h3>Adicionar Item</h3>
+    <label for="addNomeItem">Nome do Item:</label>
+    <input type="text" id="addNomeItem" placeholder="Digite o nome do item">
+
+    <label for="addValorItem">Valor do Item (R$):</label>
+    <input type="number" id="addValorItem" placeholder="Digite o valor do item">
+
+    <button type="button" onclick="confirmarAdicao()">Adicionar</button>
+    <button type="button" onclick="fecharPopup('popupAdd')">Fechar</button>
+  </div>
+</div>
+
+<!-- Pop-up para Visualizar Item -->
+<div id="popupView" class="popup">
+  <div class="popup-content">
+    <h3>Visualizar Item</h3>
+    <p><strong>Nome:</strong> <span id="viewNomeItem"></span></p>
+    <p><strong>Valor (R$):</strong> <span id="viewValorItem"></span></p>
+    <button type="button" onclick="fecharPopup('popupView')">Fechar</button>
+  </div>
+</div>
+
+<!-- Pop-up para Editar Item -->
+<div id="popupEdit" class="popup">
+  <div class="popup-content">
+    <h3>Editar Item</h3>
+    <label for="editNomeItem">Nome do Item:</label>
+    <input type="text" id="editNomeItem">
+
+    <label for="editValorItem">Valor do Item (R$):</label>
+    <input type="number" id="editValorItem">
+
+    <button type="button" onclick="confirmarEdicao()">Salvar</button>
+    <button type="button" onclick="fecharPopup('popupEdit')">Fechar</button>
+  </div>
 </div>
 
 <script src="script.js"></script>
