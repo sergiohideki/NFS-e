@@ -12,7 +12,7 @@
   <h1>Emissão de Nota Fiscal de Serviço (NFS-e)</h1>
 
   <!-- Formulário de entrada -->
-  <form id="formNFS">
+  <form id="formNFS" novalidate onsubmit="return validarFormularioPrincipal(event)">
     <!-- Botão para abrir pop-up de Adicionar Item -->
     <label for="itens">Itens Vendidos:</label>
     <button type="button" id="btnAdicionarItem">Adicionar Itens</button>
@@ -106,7 +106,7 @@
     <input type="number" id="editValorItem">
 
     <button type="button" onclick="confirmarEdicao()">Salvar</button>
-    <button type="button" onclick="fecharPopup('popupEdit')">Fechar</button>
+    <button type="button" onclick="fecharPopup('popupEdit')">Fechar</button>    
   </div>
 </div>
 

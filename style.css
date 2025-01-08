@@ -41,15 +41,17 @@ button:hover {
 /* Botão "Adicionar Itens" */
 #btnAdicionarItem {
     display: inline-block;
-    padding: 5px 10px; /* Adicionado ajuste de largura e altura */
+    font-size: 2rem; /* Tamanho da fonte dobrado */
+    padding: 10px 20px; /* Espaçamento dobrado */
     margin-bottom: 10px;
     background-color: #28a745;
     color: white;
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    width: auto; /* Ajusta a largura ao conteúdo */
+    width: auto;
 }
+
 
 #btnAdicionarItem:hover {
     background-color: #218838;
@@ -58,15 +60,17 @@ button:hover {
 /* Botão "Gerar Nota Fiscal" */
 button[onclick="gerarNotaFiscal()"] {
     display: block;
-    margin: 20px auto; /* Centralizado horizontalmente */
-    padding: 5px 10px; /* Ajuste de largura e altura */
+    font-size: 2rem; /* Tamanho da fonte dobrado */
+    padding: 10px 20px; /* Espaçamento dobrado */
+    margin: 20px auto;
     background-color: #28a745;
     color: white;
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    width: auto; /* Ajusta a largura ao conteúdo */
+    width: auto;
 }
+
 
 button[onclick="gerarNotaFiscal()"]:hover {
     background-color: #218838;
@@ -101,8 +105,10 @@ table th, table td {
 }
 
 /* Ícones/Ações */
-.btnAcao {
-    background-color: #0275d8;
+
+/* Botão "Editar" */
+.btnAcao.edit {
+    background-color: #ffc107; /* Amarelo */
     color: #fff;
     border-radius: 4px;
     width: 35px;
@@ -110,14 +116,22 @@ table th, table td {
     border: none;
     font-size: 16px;
     cursor: pointer;
-    display: flex; /* Garante alinhamento do ícone */
-    justify-content: center; /* Centraliza o conteúdo horizontalmente */
-    align-items: center; /* Centraliza o conteúdo verticalmente */
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.btnAcao:hover {
-    background-color: #025aa5;
+.btnAcao.edit:hover {
+    background-color: #e0a800; /* Amarelo mais escuro */
 }
+
+/* Ícone interno do botão "Editar" */
+.btnAcao.edit .edit-icon {
+    transform: rotate(135deg); /* Rotaciona o ícone */
+    display: inline-block;
+}
+
+/* Botão "delete" */
 
 .btnDelete {
     background-color: #dc3545;
@@ -136,6 +150,28 @@ table th, table td {
 .btnDelete:hover {
     background-color: #c82333;
 }
+
+/* botão view */
+
+/* Botão "Visualizar" */
+.btnAcao.view {
+    background-color: #28a745; /* Verde */
+    color: #fff;
+    border-radius: 4px;
+    width: 35px; /* Largura fixa */
+    height: 35px; /* Altura fixa */
+    border: none;
+    font-size: 16px;
+    cursor: pointer;
+    display: flex; /* Centraliza o ícone dentro do botão */
+    justify-content: center;
+    align-items: center;
+}
+
+.btnAcao.view:hover {
+    background-color: #218838; /* Verde mais escuro */
+}
+
 
 /* ======== Nota Fiscal ======== */
 .nota-fiscal {

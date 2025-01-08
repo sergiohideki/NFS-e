@@ -32,6 +32,11 @@ function fecharPopup(popupId) {
   document.getElementById(popupId).style.display = 'none';
 }
 
+function fecharPopup(popupId, event) {
+    if (event) event.preventDefault(); // Previne comportamento padrão
+    document.getElementById(popupId).style.display = 'none';
+}
+
 /* =============================================================================
    CRUD de Itens
 ============================================================================= */
@@ -121,17 +126,29 @@ function atualizarTabelaItens() {
 
     // Botão Visualizar (Olho)
     const btnView = document.createElement('button');
-    btnView.textContent = '👁';
-    btnView.className = 'btnAcao';
+    btnView.className = 'btnAcao view';
     btnView.title = 'Visualizar Item';
     btnView.onclick = () => abrirPopupView(index);
 
+    // Ícone interno do botão "Visualizar"
+    btnView.textContent = '👁'; // Adiciona o ícone do olho
+    tdAcoes.appendChild(btnView);
+
+
     // Botão Editar (Lápis)
     const btnEdit = document.createElement('button');
-    btnEdit.textContent = '✏';
-    btnEdit.className = 'btnAcao';
+    btnEdit.className = 'btnAcao edit';
     btnEdit.title = 'Editar Item';
     btnEdit.onclick = () => abrirPopupEdit(index);
+
+    // Ícone interno do botão "Editar"
+    const editIcon = document.createElement('span');
+    editIcon.className = 'edit-icon';
+    editIcon.textContent = '✏'; // Adiciona o ícone do lápis
+    btnEdit.appendChild(editIcon); // Insere o ícone no botão
+
+    tdAcoes.appendChild(btnEdit);
+
 
     // Botão Excluir (X)
     const btnDelete = document.createElement('button');
@@ -159,6 +176,13 @@ function atualizarValorVenda() {
 /* =============================================================================
    Geração de Nota Fiscal
 ============================================================================= */
+
+function validarFormularioPrincipal(event) {
+    event.preventDefault();
+    // Lógica de validação dos campos
+    return true; // Ou false, dependendo da validação
+}
+
 function gerarNotaFiscal() {
   const valorVenda = parseFloat(document.getElementById('valorVenda').value);
   const itens = itensVendidos.map(item => item.nome).join(', ');
