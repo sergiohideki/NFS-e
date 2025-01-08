@@ -5,11 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Emissão de Nota Fiscal de Serviço (NFS-e)</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
 
+
+    <div id="header"></div>
+    <script>
+      // Carregar o cabeçalho dinamicamente
+      fetch('header.html')
+        .then(response => response.text())
+        .then(data => {
+          document.getElementById('header').innerHTML = data;
+        });
+    </script>
 <div class="container">
-  <h1>Emissão de Nota Fiscal de Serviço (NFS-e)</h1>
 
   <!-- Formulário de entrada -->
   <form id="formNFS" novalidate onsubmit="return validarFormularioPrincipal(event)">
@@ -33,21 +43,27 @@
 
     <label for="valorVenda">Valor da Venda (R$):</label>
     <input type="text" id="valorVenda" name="valorVenda" readonly>
+    <div class="error-message" id="error-valorVenda"></div>
 
     <label for="irpf">Porcentagem do Imposto (IRPF):</label>
     <input type="number" id="irpf" name="irpf" required>
+    <div class="error-message" id="error-irpf"></div>
 
     <label for="pis">Porcentagem do Imposto (PIS):</label>
     <input type="number" id="pis" name="pis" required>
+    <div class="error-message" id="error-pis"></div>
 
     <label for="cofins">Porcentagem do Imposto (COFINS):</label>
     <input type="number" id="cofins" name="cofins" required>
+    <div class="error-message" id="error-cofins"></div>
 
     <label for="inss">Porcentagem do Imposto (INSS):</label>
     <input type="number" id="inss" name="inss" required>
+    <div class="error-message" id="error-inss"></div>
 
     <label for="issqn">Porcentagem do Imposto (ISSQN):</label>
     <input type="number" id="issqn" name="issqn" required>
+    <div class="error-message" id="error-issqn"></div>
 
     <button type="button" onclick="gerarNotaFiscal()">Gerar Nota Fiscal</button>
   </form>
@@ -76,9 +92,11 @@
     <h3>Adicionar Item</h3>
     <label for="addNomeItem">Nome do Item:</label>
     <input type="text" id="addNomeItem" placeholder="Digite o nome do item">
+    <div class="error-message" id="error-addNomeItem"></div>
 
     <label for="addValorItem">Valor do Item (R$):</label>
     <input type="number" id="addValorItem" placeholder="Digite o valor do item">
+    <div class="error-message" id="error-addValorItem"></div>
 
     <button type="button" onclick="confirmarAdicao()">Adicionar</button>
     <button type="button" onclick="fecharPopup('popupAdd')">Fechar</button>
@@ -101,14 +119,26 @@
     <h3>Editar Item</h3>
     <label for="editNomeItem">Nome do Item:</label>
     <input type="text" id="editNomeItem">
+    <div class="error-message" id="error-editNomeItem"></div>
 
     <label for="editValorItem">Valor do Item (R$):</label>
     <input type="number" id="editValorItem">
+    <div class="error-message" id="error-editValorItem"></div>
 
     <button type="button" onclick="confirmarEdicao()">Salvar</button>
     <button type="button" onclick="fecharPopup('popupEdit')">Fechar</button>    
   </div>
 </div>
+
+<!-- Pop-up para Confirmar Exclusão -->
+<div id="popupConfirmDelete" class="popup">
+    <div class="popup-content">
+      <h3>Confirmação de Exclusão</h3>
+      <p>Tem certeza de que deseja excluir este item?</p>
+      <button type="button" onclick="confirmarExclusao()">Sim</button>
+      <button type="button" onclick="fecharPopup('popupConfirmDelete')">Não</button>
+    </div>
+  </div>  
 
 <script src="script.js"></script>
 </body>
