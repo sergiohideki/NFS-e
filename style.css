@@ -293,3 +293,51 @@ table th, table td {
 .popup-content button:nth-child(2):hover {
     background-color: #5a6268;
 }
+
+@media (max-width: 768px) {
+    /* Aplica apenas à página de exibição da nota */
+    .pagina-nota .nota-fiscal {
+      padding: 10px;
+      font-size: 0.9rem; /* Ajusta o tamanho da fonte */
+    }
+  
+    .pagina-nota .nota-fiscal ul {
+      padding: 0;
+      margin: 10px 0;
+    }
+  
+    .pagina-nota .nota-fiscal ul li {
+      font-size: 0.9rem;
+      margin-bottom: 5px;
+    }
+  
+    /* Ajustar layout geral da página */
+    .pagina-nota .container {
+      width: 100%;
+      padding: 10px;
+      margin: 0;
+      box-shadow: none;
+    }
+  
+    .pagina-nota h2 {
+      font-size: 1.2rem; /* Reduz o tamanho do título */
+      text-align: center;
+    }
+    
+    body.pagina-nota .nota-fiscal {
+        padding: 10px;
+        font-size: 0.9rem; /* Ajusta o tamanho da fonte */
+      }
+      
+      body.pagina-nota .container {
+        width: 100%;
+        padding: 10px;
+        margin: 0;
+        box-shadow: none;
+      }
+      
+      body.pagina-nota h2 {
+        font-size: 1.2rem;
+        text-align: center;
+      }
+  }
